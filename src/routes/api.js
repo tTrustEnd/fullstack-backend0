@@ -8,7 +8,9 @@ routerAPI.get('/', (req, res) => {
     })
 })
 
-const {postCustomerAPI, postArrayCustomerAPI, getAllCustomersAPI, updateCustomersAPI} = require('../controllers/customerController')
+const {postCustomerAPI, postArrayCustomerAPI,
+     getAllCustomersAPI, updateCustomersAPI,deleteACustomersAPI
+    }= require('../controllers/customerController')
 routerAPI.get('/users', getUsersAPI)
 routerAPI.post('/users', postCreateUserAPI)
 routerAPI.put('/users', putUpdateUserAPI)
@@ -21,6 +23,8 @@ routerAPI.post('/customers', postCustomerAPI)
 routerAPI.post('/customers-many', postArrayCustomerAPI)
 routerAPI.get('/customers', getAllCustomersAPI)
 routerAPI.put('/customers', updateCustomersAPI)
+routerAPI.delete('/customers', deleteACustomersAPI)
+
 
 
 module.exports = routerAPI;
