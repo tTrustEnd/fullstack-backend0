@@ -61,10 +61,8 @@ const uploadMultiFileAPI = (req, res) => {
       if(req.files.image.name)
       {    uploadSingleFile(req.files.image)
       }
-   
-     
-    res.send('Multi')
 }
+
  module.exports = {
     getUsersAPI,
     postCreateUserAPI,putUpdateUserAPI,
