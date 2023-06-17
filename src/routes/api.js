@@ -8,7 +8,7 @@ routerAPI.get('/', (req, res) => {
     })
 })
 
-const {postCustomerAPI, postArrayCustomerAPI} = require('../controllers/customerController')
+const {postCustomerAPI, postArrayCustomerAPI, getAllCustomersAPI, updateCustomersAPI} = require('../controllers/customerController')
 routerAPI.get('/users', getUsersAPI)
 routerAPI.post('/users', postCreateUserAPI)
 routerAPI.put('/users', putUpdateUserAPI)
@@ -19,8 +19,8 @@ routerAPI.post('/files', uploadMultiFileAPI)
 
 routerAPI.post('/customers', postCustomerAPI)
 routerAPI.post('/customers-many', postArrayCustomerAPI)
-
-
+routerAPI.get('/customers', getAllCustomersAPI)
+routerAPI.put('/customers', updateCustomersAPI)
 
 
 module.exports = routerAPI;

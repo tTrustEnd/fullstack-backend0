@@ -1,6 +1,6 @@
 const { uploadSingleFile } = require('../services/fileService')
 const Customer = require('../models/cutomer')
-const { createCustomerService,createArrayCustomerService } = require('../services/customerService')
+const { createCustomerService, createArrayCustomerService, getAllCustomersService, updateCustomerService } = require('../services/customerService')
 module.exports = {
     postCustomerAPI: async (req, res) => {
         let { name, address, phone, email, image, description } = req.body;
@@ -24,17 +24,39 @@ module.exports = {
     },
     postArrayCustomerAPI: async (req, res) => {
         let customer = await createArrayCustomerService(req.body.customers)
-        if(customer){
+        if (customer) {
             res.status(200).json({
-                EC:0,
-                data:customer
+                EC: 0,
+                data: customer
             })
         }
-      else{
+        else {
+            return res.status(200).json({
+                EC: -1,
+                data: customer
+            })
+        }
+    },
+    getAllCustomersAPI: async (req, res) => {
+        let result = await getAllCustomersService()
         return res.status(200).json({
-            EC:-1,
-            data:customer
+            EC: 0,
+            data: result
         })
-      }
+        res.send('get customer')
+    },
+    updateCustomersAPI: async (req, res) => {
+        let {id, name, email, address} = req.body;
+        let dataupdate = {
+            name,
+            email,
+            address
+        }
+        let result = await updateCustomerService(id,dataupdate)
+        console.log(result)
+        return res.status(200).json({
+            EC:0,
+            data:result
+        })
     }
 }
