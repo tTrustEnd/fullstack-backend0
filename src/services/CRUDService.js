@@ -1,6 +1,6 @@
-const connection = require("../config/database") 
+const User = require("../models/user") 
 const getAllusers = async(req, res) => {
-    let [results, field] = await connection.query('select *from Users')
+    let results = await User.find({})
     return results
 }
 const getUserById = async (userId) => {

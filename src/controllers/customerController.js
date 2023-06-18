@@ -1,5 +1,5 @@
 const { uploadSingleFile } = require('../services/fileService')
-const Customer = require('../models/cutomer')
+const Customer = require('../models/customer')
 
 const { createCustomerService, createArrayCustomerService,
     getAllCustomersService, updateCustomerService,

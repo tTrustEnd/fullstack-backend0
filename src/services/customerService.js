@@ -1,4 +1,4 @@
-const Customer = require('../models/cutomer')
+const Customer = require('../models/customer')
 const aqp = require('api-query-params');
 
 const createCustomerService = async (customerData) => {
