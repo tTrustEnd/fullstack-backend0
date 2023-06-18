@@ -1,5 +1,6 @@
 const { uploadSingleFile } = require('../services/fileService')
 const Customer = require('../models/cutomer')
+
 const { createCustomerService, createArrayCustomerService,
     getAllCustomersService, updateCustomerService,
     deleteACustomerService, deleteArrayCustomersService } = require('../services/customerService')
@@ -42,9 +43,10 @@ module.exports = {
     getAllCustomersAPI: async (req, res) => {
         let limit = req.query.limit;
         let page = req.query.page;
+        let name = req.query.name;
         let result = [];
         if (limit && page) {
-            result = await getAllCustomersService(limit, page);
+            result = await getAllCustomersService(limit, page,name,req.query);
         }
         else
             result = await getAllCustomersService()
