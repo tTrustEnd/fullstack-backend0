@@ -12,7 +12,7 @@ const {postCustomerAPI, postArrayCustomerAPI,
      getAllCustomersAPI, updateCustomersAPI,deleteACustomersAPI,
      deleteArrCustomersAPI
     }= require('../controllers/customerController')
-const {postCreateProject} = require('../controllers/projectsController')
+const {postCreateProject, getProjects} = require('../controllers/projectsController')
 
 routerAPI.get('/users', getUsersAPI)
 routerAPI.post('/users', postCreateUserAPI)
@@ -30,6 +30,7 @@ routerAPI.delete('/customers', deleteACustomersAPI)
 routerAPI.delete('/customers-many', deleteArrCustomersAPI)
 
 routerAPI.post('/projects', postCreateProject)
+routerAPI.get('/projects', getProjects)
 
 
 routerAPI.get('/info', (req, res) =>{
