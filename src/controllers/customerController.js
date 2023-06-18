@@ -1,8 +1,8 @@
 const { uploadSingleFile } = require('../services/fileService')
 const Customer = require('../models/cutomer')
-const { createCustomerService, createArrayCustomerService, 
+const { createCustomerService, createArrayCustomerService,
     getAllCustomersService, updateCustomerService,
-    deleteACustomerService,deleteArrayCustomersService} = require('../services/customerService')
+    deleteACustomerService, deleteArrayCustomersService } = require('../services/customerService')
 module.exports = {
     postCustomerAPI: async (req, res) => {
         let { name, address, phone, email, image, description } = req.body;
@@ -40,7 +40,14 @@ module.exports = {
         }
     },
     getAllCustomersAPI: async (req, res) => {
-        let result = await getAllCustomersService()
+        let limit = req.query.limit;
+        let page = req.query.page;
+        let result = [];
+        if (limit && page) {
+            result = await getAllCustomersService(limit, page);
+        }
+        else
+            result = await getAllCustomersService()
         return res.status(200).json({
             EC: 0,
             data: result
@@ -48,33 +55,33 @@ module.exports = {
         res.send('get customer')
     },
     updateCustomersAPI: async (req, res) => {
-        let {id, name, email, address} = req.body;
+        let { id, name, email, address } = req.body;
         let dataupdate = {
             name,
             email,
             address
         }
-        let result = await updateCustomerService(id,dataupdate)
+        let result = await updateCustomerService(id, dataupdate)
         console.log(result)
         return res.status(200).json({
-            EC:0,
-            data:result
+            EC: 0,
+            data: result
         })
     },
-    deleteACustomersAPI : async (req, res) => {
-       let result = await deleteACustomerService(req.body.id)
-       return res.status(200).json({
-        EC:0,
-        data:result
-       })
+    deleteACustomersAPI: async (req, res) => {
+        let result = await deleteACustomerService(req.body.id)
+        return res.status(200).json({
+            EC: 0,
+            data: result
+        })
     },
     deleteArrCustomersAPI: async (req, res) => {
         console.log(req.body.Customersid)
-       let result = await deleteArrayCustomersService(req.body.Customersid)
-       return res.status(200).json({
-        EC:0,
-        data:result
-       })
-     
+        let result = await deleteArrayCustomersService(req.body.Customersid)
+        return res.status(200).json({
+            EC: 0,
+            data: result
+        })
+
     }
 }
