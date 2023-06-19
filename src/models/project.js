@@ -21,7 +21,10 @@ const projectSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        startDate: String,
+        startDate: {
+            type: String,
+            required: true
+        },
         endDate: String,
         description: String,
         customerInfor: customerSchema,

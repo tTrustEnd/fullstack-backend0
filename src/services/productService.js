@@ -15,12 +15,29 @@ const createProject = async (data) => {
         return newproject;
 
     }
+    if (data.type === "remove-users") {
+        let projects = await Project.findById(data.projectsId)
+        for (let i = 0; i < data.userId.length; i++) {
+            projects.usersInfor.pull(data.userId[i]);
+        }
+        let newproject = await projects.save()
+        return newproject;
+
+    }
+    if (data.type === "add-tasks") {
+        let projects = await Project.findById(data.projectsId)
+        for (let i = 0; i < data.tasksId.length; i++) {
+            projects.tasks.push(data.tasksId[i]);
+        }
+        let newproject = await projects.save()
+        return newproject;
+
+    }
     return null;
 }
 const getProjectService = async (queryString) => {
     let page = queryString.page
     const { filter, limit, population } = aqp(queryString);
-    console.log(population)
     delete filter.page;
     let offset = (page - 1) * limit;
     result = await Project.find(filter)
@@ -31,7 +48,25 @@ const getProjectService = async (queryString) => {
 
     return result
 }
+const deleteProjectService = async (id) => {
+    try {
+        let result = await Project.deleteById(id)
+        return result
+    }
+    catch (error) {
+        console.log('error:', error)
+    }
+}
+const updateProjects = async (id, data) => {
+    try {
+        let result = await Project.updateOne({ id: id }, data)
+        return result;
+    } catch (error) {
+        console.log('error>>:', error)
+    }
+}
 module.exports = {
     createProject,
-    getProjectService
+    getProjectService,
+    deleteProjectService, updateProjects
 }
