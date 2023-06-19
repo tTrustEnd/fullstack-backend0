@@ -1,6 +1,6 @@
 const { uploadSingleFile } = require('../services/fileService')
 const Customer = require('../models/customer')
-
+const {validateCustomer} = require('../validate/validate')
 const { createCustomerService, createArrayCustomerService,
     getAllCustomersService, updateCustomerService,
     deleteACustomerService, deleteArrayCustomersService } = require('../services/customerService')
@@ -8,20 +8,7 @@ const Joi = require('joi');
 module.exports = {
     postCustomerAPI: async (req, res) => {
         let { name, address, phone, email, image, description } = req.body;
-        const schema = Joi.object({
-            name: Joi.string()
-                .alphanum()
-                .min(3)
-                .max(30)
-                .required(),
-            description: Joi.string().max(50),
-            phone:Joi.string().pattern(new RegExp('^[0-9]{8,11}$')),
-            address: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-            email: Joi.string()
-                .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
-        })
-      const {error} = schema.validate(req.body);
-      console.log(error)
+      const {error} = validateCustomer.validate(req.body);
       if(error){
         return res.status(200).json({
             data:error
